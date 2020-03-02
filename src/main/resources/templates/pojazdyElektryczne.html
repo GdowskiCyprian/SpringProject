@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<!doctype html>
+<html lang="en">
+<head>
+    <!-- Required meta tags -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+
+    <title>Spring Projekt Samochody</title>
+</head>
+<body>
+<h1>Pojazdy Elektryczne</h1>
+<table>
+    <tr>
+        <th>Name</th>
+        <th>Wheel count</th>
+        <th>Max speed</th>
+        <th>Engine power</th>
+        <th>Range</th>
+    </tr>
+    <tr th:each="pojazdyElektryczne : ${pojazdyElektryczne}">
+        <td th:text="${pojazdyElektryczne.name}"></td>
+        <td th:text="${pojazdyElektryczne.wheelCount}"></td>
+        <td th:text="${pojazdyElektryczne.maxSpeed}"></td>
+        <td th:text="${pojazdyElektryczne.enginePower}"></td>
+        <td th:text="${pojazdyElektryczne.range}"></td>
+    </tr>
+</table>
+<p></p>
+<a href="javascript:history.back()">Powrót na stronę główną</a> /
+<a href="/zapis?value=abc"> zapisz</a> /
+<a href="/odczyt?value=abc"> odczyt</a>
+<form>
+    Name:
+    <br>
+    <input id="cname" type="text" name="name">
+    <br>
+    Wheel Count:
+    <br>
+    <input id="cwcount" type="text" name="wcount">
+    <br>
+    Max Speed:
+    <br>
+    <input id="cmspeed" type="text" name="mspeed">
+    <br>
+    Engine Power:
+    <br>
+    <input id="cepower" type="text" name="epower">
+    <br>
+    Range:
+    <br>
+    <input id="crange" type="text" name="range">
+    <br>
+    <button onclick="postPojazdElektryczny()">Zapisz Pojazd</button>
+
+</form>
+
+
+
+
+
+<!-- Optional JavaScript -->
+<script>
+    function postPojazdElektryczny() {
+	let cname = $("#cname").val();
+	let cwcount = $("#cwcount").val();
+	let cmspeed = $("#cmspeed").val();
+	let cepower = $("#cepower").val();
+	let crange = $("#crange").val();
+
+	console.log(cname, cwcount, cmspeed,cepower,crange);
+	let obj = {
+			name: cname,
+			wheelCount: cwcount,
+			maxSpeed : cmspeed,
+			enginePower : cepower,
+			range : crange
+	}
+
+	$.ajax({
+		  type: "POST",
+		  url: "/pojazdy/elektryczne1",
+		  data: JSON.stringify(obj),
+		  contentType: "application/json; charset=utf-8",
+		  dataType: "json",
+
+		});
+}
+
+</script>
+<!-- jQuery first, then Popper.js, then Bootstrap JS -->
+
+<script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/2.2.4/jquery.min.js"></script>
+</body>
+</html>
